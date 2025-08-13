@@ -1,7 +1,8 @@
 import { checkUser } from '@/lib/checkUser'
 import { currentUser } from '@clerk/nextjs/server'
+import Guest from '@/Components/Guest'
 
-export default async function Page() {
+export default async function HomePage() {
   console.log('=== PAGE STARTED ===')
   
   try {
@@ -22,6 +23,11 @@ export default async function Page() {
       console.error('Error message:', error.message)
       console.error('Error stack:', error.stack)
     }
+  }
+
+  const user = await currentUser();
+  if(!user){
+    return <Guest/>
   }
 
   return (
